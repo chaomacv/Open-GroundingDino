@@ -1,0 +1,16 @@
+{
+    "1_1_2_1": "missing_fastener,扣件缺失",
+    "1_1_2_2": "broken_fastener,扣件断裂",
+    "1_4_1_1": "rusty_sound_barrier_panel,声屏障板锈蚀,rust",
+    "1_4_2_2": "rusty_sound_barrier_column,声屏障立柱锈蚀,rust",
+    "1_4_4_1": "aging_mortar_layer,砂浆层老化,mortar_aging",
+    "1_5_3_1": "missing_bolt,螺栓缺失,nut_missing",
+    "1_5_3_6": "rusty_bolt_coating,螺栓涂层锈蚀,rust",
+    "1_5_3_8": "peeling_coating,涂层脱落,coating_peeling",
+    "1_5_4_2": "rusty_bridge_railing,桥梁栏杆锈蚀,rust",
+    "2_1_5_2": "bird_nest_on_pole,杆塔鸟巢,nest",
+    "3_1_2_1": "loose_antenna_bolt,天线螺栓松动,antenna_nut_loose",
+    "3_1_3_1": "bird_nest_on_tower,铁塔鸟巢,nest",
+    "4_1_2_1": "plastic_film,塑料薄膜,plastic_film",
+    "4_1_4_1": "rubbish_pile,垃圾堆,rubbish"
+}

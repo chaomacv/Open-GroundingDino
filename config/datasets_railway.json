@@ -1,0 +1,17 @@
+{
+  "train": [
+    {
+      "root": "/opt/data/private/xjx/RailMind/高速铁路无人机图像/FilteredLabeled",
+      "anno": "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/train_odvg.jsonl",
+      "label_map": "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/label_map.json",
+      "dataset_mode": "odvg"
+    }
+  ],
+  "val": [
+    {
+      "root": "/opt/data/private/xjx/RailMind/高速铁路无人机图像/FilteredLabeled",
+      "anno": "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/train_odvg.jsonl",
+      "dataset_mode": "odvg"
+    }
+  ]
+}

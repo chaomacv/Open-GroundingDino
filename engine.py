@@ -2,7 +2,7 @@
 """
 Train and eval functions used in main.py
 """
-
+import wandb  # <--- 新增这行
 import math
 import os
 import sys
@@ -64,6 +64,22 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
             print("Loss is {}, stopping training".format(loss_value))
             print(loss_dict_reduced)
             sys.exit(1)
+            
+        # ================== W&B 新增代码开始 ==================
+        if utils.is_main_process():
+            # 构造一个日志字典
+            log_dict = {
+                "train/total_loss": loss_value,
+                "train/lr": optimizer.param_groups[0]["lr"],
+                "train/epoch": epoch,
+            }
+            # 把各个细分 Loss 也加进去 (比如 bbox loss, giou loss)
+            for k, v in loss_dict_reduced.items():
+                log_dict[f"train/{k}"] = v
+
+            # 发送给云端
+            wandb.log(log_dict)
+        # ================== W&B 新增代码结束 ==================
 
         # amp backward function
         if args.amp:

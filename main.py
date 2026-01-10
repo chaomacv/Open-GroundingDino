@@ -1,5 +1,6 @@
 # Copyright (c) 2022 IDEA. All Rights Reserved.
 # ------------------------------------------------------------------------
+import wandb  # <--- 新增这行
 import argparse
 import datetime
 import json
@@ -144,6 +145,21 @@ def main(args):
     model, criterion, postprocessors = build_model_main(args)
     wo_class_error = False
     model.to(device)
+    
+    # ================== W&B 新增代码开始 ==================
+    # ⚠️ 极其重要：只允许主进程 (Rank 0) 上传数据，防止 4 张卡重复上传
+    if utils.is_main_process():
+        # 自动用输出文件夹的名字作为实验名 (例如 railway_4gpu_80_10_10)
+        exp_name = args.output_dir.strip('/').split('/')[-1]
+
+        wandb.init(
+            project="RailMind-GroundingDINO",  # 项目名称 (你在网页上看到的总文件夹)
+            name=exp_name,                     # 实验名称 (本次训练的名字)
+            config=args,                       # 自动记录所有超参数 (lr, batch_size等)
+            resume="allow"                     # 允许断点续传
+        )
+    # ================== W&B 新增代码结束 ==================
+
     logger.debug("build model, done.")
 
 

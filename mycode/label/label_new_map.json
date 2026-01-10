@@ -1,0 +1,17 @@
+{
+    "1": "missing_fastener",
+    "2": "broken_fastener",
+    "3": "rust",
+    "4": "mortar_aging",
+    "5": "nut_missing", 
+    "6": "coating_peeling",
+    "7": "nest",
+    "8": "antenna_nut_loose",
+    "9": "plastic_film",
+    "10": "rubbish",
+    "11": "guard_rust",
+    "12": "coating_rust",
+    "13": "nut_rust",
+    "14": "column_rust",
+    "15": "plate_rust"
+}

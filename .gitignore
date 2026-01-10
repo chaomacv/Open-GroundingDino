@@ -158,3 +158,20 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+# --- 新增忽略规则 ---
+# 忽略 wandb (Weights & Biases 日志，文件极多)
+wandb/
+
+# 忽略本地训练日志和输出目录
+logs/
+logs_old/
+output*/
+
+# 忽略单张测试结果图
+result_single.jpg
+
+# 忽略手动复制的备份文件 (Git 不需要这些)
+*copy.py
+*copy*.py
+*copy.json
+*copy*.json
