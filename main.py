@@ -288,7 +288,46 @@ def main(args):
         return
     
  
-    
+    # ================= 🔍 新增：训练数据/Prompt 抽样检查 =================
+    # 只在主进程进行检查，避免多卡重复打印
+    if utils.is_main_process():
+        print("\n" + "="*80)
+        print("🔍 [Sanity Check] 正在检查送入模型的第一个 Batch 数据...")
+        
+        try:
+            # 1. 从训练 DataLoader 中取出一个 Batch
+            # 注意：这不会影响后续的正式训练，因为 sampler 会重置
+            _tmp_iter = iter(data_loader_train)
+            samples, targets = next(_tmp_iter)
+            
+            # 2. 打印前 3 个样本的信息
+            check_count = min(len(targets), 3)
+            for i in range(check_count):
+                print(f"\n📋 [样本 {i+1}/{check_count}]")
+                
+                # A. 打印构建好的 Prompt (最关键！)
+                # 这是模型实际看到的文本，你应该检查这里是否是 "rusty nut" 而不是 "nut_rust"
+                caption = targets[i].get("caption", "N/A")
+                print(f"   📝 Prompt (Caption): \n      \"{caption}\"")
+                
+                # B. 打印对应的 Class ID
+                labels = targets[i].get("labels", [])
+                print(f"   🏷️ Label IDs: {labels.tolist()}")
+                
+                # C. 简单的逻辑检查
+                if "_" in caption and " " not in caption:
+                     print("   ❌ 警告：Prompt 中似乎仍包含未处理的下划线连词，请仔细检查！")
+                elif caption.strip() == "":
+                     print("   ⚠️ 警告：Prompt 为空！(如果是 only_train_positives=True 且该图无目标，则正常)")
+                else:
+                     print("   ✅ 格式看起来很健康 (自然语言格式)")
+
+            print("="*80 + "\n")
+            
+        except Exception as e:
+            print(f"❌ 检查失败: {e}")
+            print("="*80 + "\n")
+    # ====================================================================
     print("Start training")
     start_time = time.time()
     best_map_holder = BestMetricHolder(use_ema=False)

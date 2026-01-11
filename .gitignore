@@ -175,3 +175,18 @@ result_single.jpg
 *copy*.py
 *copy.json
 *copy*.json
+# 忽略所有图像文件 (常用后缀)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.JPG
+*.JPEG
+
+# 忽略所有 JSON 文件
+*.json
+
+# 忽略所有 JSONL 文件 (如果是训练数据)
+*.jsonl
