@@ -185,9 +185,12 @@ def evaluate(model, criterion, postprocessors, data_loader, base_ds, device, out
 
             outputs = model(samples, captions=input_captions)
 
-        orig_target_sizes = torch.stack([t["orig_size"] for t in targets], dim=0)
-
+        # 修改后：
+        # 1. 确保 orig_target_sizes 被移动到了 device (GPU)
+        orig_target_sizes = torch.stack([t["orig_size"] for t in targets], dim=0).to(device)
+        # 2. 然后再传给 postprocessors
         results = postprocessors['bbox'](outputs, orig_target_sizes)
+        
         # [scores: [100], labels: [100], boxes: [100, 4]] x B
         if 'segm' in postprocessors.keys():
             target_sizes = torch.stack([t["size"] for t in targets], dim=0)

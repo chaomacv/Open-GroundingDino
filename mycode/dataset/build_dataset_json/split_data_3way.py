@@ -4,14 +4,14 @@ import os
 
 # ================= ⚙️ 配置区域 =================
 # 1. 你的原始全量数据文件
-INPUT_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/train_odvg.jsonl"
+INPUT_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/train_odvg_filtered.jsonl"
 # 2. 你的 Label Map 文件
-LABEL_MAP_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/label_map.json"
+LABEL_MAP_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/label_map_only.json"
 
 # 3. 输出文件路径
-OUTPUT_TRAIN_ODVG = "train_split.jsonl"      # 80% 训练用
-OUTPUT_VAL_COCO   = "val_split_coco.json"    # 10% 训练中验证用 (COCO格式)
-OUTPUT_TEST_COCO  = "test_split_coco.json"   # 10% 最终测试用 (COCO格式)
+OUTPUT_TRAIN_ODVG = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/train_split_only.jsonl"      # 80% 训练用
+OUTPUT_VAL_COCO   = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/val_split_coco_only.json"    # 10% 训练中验证用 (COCO格式)
+OUTPUT_TEST_COCO  = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/test_split_coco_only.json"   # 10% 最终测试用 (COCO格式)
 
 # 4. 划分比例 (验证集和测试集各占多少)
 VAL_RATIO = 0.1   # 10%

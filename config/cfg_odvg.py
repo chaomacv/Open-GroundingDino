@@ -49,7 +49,7 @@ max_labels = 50                               # pos + neg
 # [新增开关]
 # False = 全标签训练 (默认)：会随机采样负样本填充至 max_labels 个，强制模型学习区分正负样本。
 # True  = 按已有标签训练：只使用图片中实际出现的标签，负样本数为 0。
-only_train_positives = False
+only_train_positives = True
 lr = 0.0001                                   # base learning rate
 backbone_freeze_keywords = None               # only for gdino backbone
 freeze_keywords = ['bert']                    # for whole model, e.g. ['backbone.0', 'bert'] for freeze visual encoder and text encoder
@@ -120,16 +120,14 @@ ema_epoch = 0
 use_detached_boxes_dec_out = False
 
 label_list = [
-    "insulator", "bird protection", "fixed pulley", "nest",
-    "normal nut", "rusty nut", "missing nut", "rust",
-    "rusty guard", "rusty coating", "peeling coating", "fastener",
-    "missing fastener", "slab crack", "broken fastener", "rubbish",
-    "plastic film", "normal column", "normal mortar", "rusty column",
-    "aging mortar", "single nut", "rusty plate", "normal tower nut",
-    "normal antenna nut", "loose antenna nut", "car", "cement room",
-    "asbestos tile", "color steel tile", "railroad", "vent",
-    "top", "track area", "external structure", "noise barrier",
-    "coating blister"
+    "insulator", "birdguard", "pulley", "nest", "nut", "rustynut", 
+    "nonut", "corrosion", "rustyfence", "rustypaint", "peeling", 
+    "clip", "noclip", "fracture", "snappedclip", "debris", 
+    "plastic", "pole", "cement", "rustypole", "agedcement", 
+    "uninut", "rustyplate", "towernut", "antennanut", "loosenut", 
+    "vehicle", "bunker", "shingle", "metalroof", "track", 
+    "vent", "rooftop", "ballast", "infrastructure", "soundwall", 
+    "blister"
 ]
 
 

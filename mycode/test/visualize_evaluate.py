@@ -20,11 +20,11 @@ from groundingdino.util.inference import predict, annotate
 # ================= ⚙️ 配置区域 =================
 # 1. 模型配置
 CONFIG_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/config/cfg_odvg.py"
-CHECKPOINT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/logs/railway_4gpu_wandb_full_label/checkpoint_best_regular.pth"
-TEST_JSON_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/test_split_coco_fixed.json"
+CHECKPOINT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/logs/0111_railway_4gpu_wandb_only_label/checkpoint_best_regular.pth"
+TEST_JSON_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/benchmark.json"
 IMAGE_ROOT = "/opt/data/private/xjx/RailMind/database/test/基准测试_1229/基准测试数据集"
-LABEL_MAP_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/label_map.json"
-OUTPUT_DIR = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/mycode/0110_full_test_benchmark" # 建议修改输出目录名以区分
+LABEL_MAP_FILE = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/label_map_only.json"
+OUTPUT_DIR = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/mycode/0111_railway_4gpu_wandb_only_label_benchmark" # 建议修改输出目录名以区分
 BERT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/GroundingDINO/weights/bert-base-uncased"
 
 
