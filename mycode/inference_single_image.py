@@ -16,22 +16,22 @@ from groundingdino.util.inference import predict, annotate
 # 1. 想找什么？(Prompt)
 # 格式要求：英文单词，用 " . " (空格+点+空格) 分隔，最后也要加点
 # 示例： "insulator . nut_missing . bird_nest ."
-TEXT_PROMPT = "insulator . nut_missing . guard_rust ."
+TEXT_PROMPT = "rustypaint . corrosion . guard_rust . rustyfence . rustypole . rustyplate ."
 
 # 2. 只有一张图，路径填这里
-IMAGE_PATH = "/opt/data/private/xjx/RailMind/高速铁路无人机图像/FilteredLabeled/接触网杆-有标注-检测框/60693401101743_0017_Z.jpg"
+IMAGE_PATH = "/opt/data/private/xjx/RailMind/高速铁路无人机图像/FilteredLabeled/声屏障-仅缺陷标注-检测框/60752222094958_0009_Z_9.JPG"
 
 # 3. 结果保存路径
 OUTPUT_IMAGE_PATH = "result_single.jpg"
 
 # 4. 模型配置 (保持不变)
 CONFIG_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/config/cfg_odvg.py"
-CHECKPOINT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/logs/railway_4gpu_80_10_10/checkpoint_best_regular.pth"
+CHECKPOINT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/logs/0113/model3_only_fullneg/checkpoint_best_regular.pth"
 BERT_PATH = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/GroundingDINO/weights/bert-base-uncased"
 
 # 5. 阈值 (根据效果微调)
-BOX_THRESHOLD = 0.25   # 框的置信度阈值
-TEXT_THRESHOLD = 0.25  # 文本匹配阈值
+BOX_THRESHOLD = 0.35   # 框的置信度阈值
+TEXT_THRESHOLD = 0.35  # 文本匹配阈值
 
 # =========================================================
 

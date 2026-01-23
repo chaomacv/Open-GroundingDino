@@ -5,15 +5,24 @@ import time
 import threading
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
-
+import argparse
 # ================= ⚙️ 基础路径配置 =================
+# [新增] 解析命令行参数获取 Qwen JSON 路径
+parser = argparse.ArgumentParser(description="Batch Runner")
+parser.add_argument("--qwen_json", type=str, required=True, help="Qwen3 结果文件的绝对路径")
+# 使用 parse_known_args 防止与后续可能的参数冲突
+args_pre, _ = parser.parse_known_args()
+
+QWEN_RESULT_JSON = args_pre.qwen_json  # <--- 这里变成了动态变量
+
+print(f"🔗 [Batch Runner] 接收到的 Qwen JSON 路径: {QWEN_RESULT_JSON}")
 
 PROJECT_ROOT = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino"
 LOGS_ROOT = os.path.join(PROJECT_ROOT, "logs", "0113")
-OUTPUT_ROOT_BASE = os.path.join(PROJECT_ROOT, "batch_eval_results", "0115")
+OUTPUT_ROOT_BASE = os.path.join(PROJECT_ROOT, "batch_eval_results", "qwen")
 
 # 评估脚本路径
-EVAL_SCRIPT = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/mycode/test/visualize_evaluate_argparse.py"
+EVAL_SCRIPT = "/opt/data/private/xjx/RailMind/agent/RailwayCARS/relatedResearch/Open-GroundingDino/mycode/test/visualize_evaluate_argparse_qwen.py"
 
 # Label Map 文件路径
 LABEL_MAP_FULL = os.path.join(PROJECT_ROOT, "label_map.json")
@@ -35,14 +44,14 @@ PRINT_LOCK = threading.Lock()
 
 # ================= 📦 1. 待评估的模型列表 =================
 MODELS_LIST = [
-    "model1_std_fullneg",
+    # "model1_std_fullneg",
     # "model2_std_posonly",
-    # "model3_only_fullneg",
-    # "model4_only_posonly",
+    "model3_only_fullneg",
+    "model4_only_posonly",
 ]
 
 # ================= 📂 2. 数据集详细配置 =================
-BENCHMARK_JSON_PATH = os.path.join(PROJECT_ROOT, "benchmark_mini.json")
+BENCHMARK_JSON_PATH = os.path.join(PROJECT_ROOT, "benchmark.json")
 TEST_JSON_PATH = os.path.join(PROJECT_ROOT, "test_split_coco.json")
 
 DATASET_CONFIGS = [
@@ -126,6 +135,13 @@ def run_task(task_args):
         
         if use_gt_labels:
             cmd.append("--use_gt_labels_only")
+            
+            # [修改核心逻辑]：只有在 Benchmark 数据集且开启 GTLabels (原意为Oracle模式) 时，
+            # 注入 Qwen3 的结果作为 Prompt 来源
+            if "benchmark" in dataset_cfg["name"].lower():
+                cmd.append("--external_prompt_json")
+                cmd.append(QWEN_RESULT_JSON)
+                safe_print(f"[GPU {gpu_id}] ℹ️ 使用 Qwen3 结果替换 GT Prompt: {dataset_cfg['name']}")
 
         # 4. 设置环境变量 (核心并行逻辑)
         env = os.environ.copy()
@@ -181,7 +197,7 @@ if __name__ == "__main__":
             if not dataset["run_flag"]:
                 continue
             # 添加任务参数到列表
-            all_tasks.append((model, dataset, False)) # AllLabels
+            # all_tasks.append((model, dataset, False)) # AllLabels
             all_tasks.append((model, dataset, True))  # GTLabels
 
     print(f"📊 总共生成 {len(all_tasks)} 个任务，准备并行执行...")
